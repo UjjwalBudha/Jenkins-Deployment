@@ -3,10 +3,10 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'pwd'
+                bat 'pwd'
                 
-                sh 'ls'
-                sh 'whoami'
+                bat 'ls'
+                bat 'whoami'
                 
             }
         }
