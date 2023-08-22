@@ -14,8 +14,8 @@ pipeline {
         stage("Delivery of Image to Docker Hub") {
             steps {
                 bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
-                bat 'docker tag nodejs susigugh/nodejs:1.0'
-                bat 'docker push susigugh/nodejs:1.0'
+                bat 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
+                bat 'docker push ujjwalbudha000/myrepo:v9'
             }
         }
     }
