@@ -8,7 +8,7 @@ pipeline {
                 bat 'whoami'
                 echo hello > a.txt
                 bat 'dir'
-                bat docker ps
+                docker ps
                 
             }
         }
