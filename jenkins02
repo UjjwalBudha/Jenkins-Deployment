@@ -13,6 +13,7 @@ pipeline {
             steps {
                 bat 'docker tag nodejs:latest ujjwalbudha000/ujjwalbudha000:v8'
                 bat 'docker push ujjwalbudha000/ujjwalbudha000:v8'
+                bat 'docker login'
             }
         }
     }
