@@ -1,13 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage("List Files") {
-            steps {
-                bat 'echo Current directory:'
-                bat 'dir'
-            }
-        }
-
         stage("Build Nodejs Image") {
             steps {
                 bat 'docker build -t nodejs .'
