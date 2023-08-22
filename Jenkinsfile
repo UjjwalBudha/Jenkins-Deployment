@@ -6,7 +6,7 @@ pipeline {
                 bat 'cd'
                 bat 'dir'
                 bat 'whoami'
-                echo hello > a.txt
+                writeFile file: 'a.txt', text: 'hello'
                 bat 'dir'
                 docker ps
                 
