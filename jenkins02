@@ -10,7 +10,7 @@ pipeline {
 
         stage("Delivery of Image to Docker Hub") {
             steps {
-                bat 'docker image tag nodejs01:1.0 ujjwalbudha000/nodejs:1.2'
+                bat 'docker tag nodejs:1.2 ujjwalbudha000/nodejs:1.2'
                 bat 'docker push ujjwalbudha000/nodejs:1.2'
             }
         }
