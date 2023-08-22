@@ -4,7 +4,7 @@ pipeline {
         stage("Build Nodejs Image") {
             steps {
                 bat 'docker build -t nodejs:1.2 .'
-                bat 'docker ps'
+                bat 'docker images'
             }
         }
 
