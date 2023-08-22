@@ -1,9 +1,12 @@
 pipeline {
     agent any
-    stages {
-        stage('build') {
+        stage ('Build') {
             steps {
-                bat 'whoami'
+                sh 'pwd'
+                sh 'touch a.txt'
+                sh 'ls -ltr'
+                sh 'whoami'
+                sh 'sudo docker ps'
             }
         }
     }
