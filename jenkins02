@@ -4,6 +4,7 @@ pipeline {
   
         stage("Build Nodejs Image") {
             steps {
+                bat 'docker login'
                 bat 'docker build -t nodejs .'
                 bat 'docker images'
             }
@@ -13,7 +14,7 @@ pipeline {
             steps {
                 bat 'docker tag nodejs:latest ujjwalbudha000/ujjwalbudha000:v8'
                 bat 'docker push ujjwalbudha000/ujjwalbudha000:v8'
-                bat 'docker login'
+                
             }
         }
     }
