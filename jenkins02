@@ -9,6 +9,7 @@ pipeline {
             steps {
                 bat 'docker build -t nodejs .'
                 bat 'docker images'
+                bat 'docker ps'
             }
         }
         stage("Delivery of Image to Docker Hub") {
