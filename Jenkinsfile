@@ -8,7 +8,7 @@ pipeline {
                 bat 'whoami'
                
                
-                docker ps
+                bat 'docker ps'
                 
             }
         }
