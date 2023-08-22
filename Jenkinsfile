@@ -3,9 +3,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                bat 'pwd'
+                bat 'cd'
                 
-                bat 'ls'
+                bat 'dir'
                 bat 'whoami'
                 
             }
