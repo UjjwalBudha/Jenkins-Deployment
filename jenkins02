@@ -23,7 +23,7 @@ pipeline {
 
         stage("Deployment to Kubernetes") {
             steps {
-                sh "echo MIIEpAIBAAKCAQEAuE1z77NRZR5gRpEWMjkLgfqOn4GJi3UTNCmydPWNPBHKIIFA
+                sh "echo 'MIIEpAIBAAKCAQEAuE1z77NRZR5gRpEWMjkLgfqOn4GJi3UTNCmydPWNPBHKIIFA
 D3ocbg78Bs/36KfvWxD8C1Y85+lhGBb9k6X3tobli9vKbAkUutJBJgisgS5ii6Z2
 saC53Ey401/8qER0MGL+G4+IspyhUV90b85i8oEimhcNu7bw5ZlllRZAVG84qGTV
 JMe631iBUXXgMdOtmEMfPXGL0i0pGZYQSObe7Xi4OdhOItMFeOlZd0jAmNgf9ERs
@@ -47,7 +47,7 @@ OlHH8DJOA2u28QL184ywPg7MUxoVoubaTVIIOG6EDPNAFj+8SocCvuNi8bCpZq7o
 4Okbf1KQH+9N+dNa/03yL3L5iVcCD7bLuwmi+4kBLIt9k4Ih6MGpfnS6gxl+JWuf
 oTcl1wKBgQCOVhykxb3FLdvDMQ7FAs2vAqW6/X2tsb7sOeIhVe+8VQt+5+kJqt9W
 +GmdC7gSx7NtsnlV0r3Oaihbk5f2p/PkZskbuCm15YqNGOAjEKGTfjtPRCq3Hq2W
-OHyyT46+AWD39kvTNT9IUSkhQjCYRqUjjZRtULubjgzz47N3AWLtrA== > aws-ec2-pem.pem"
+OHyyT46+AWD39kvTNT9IUSkhQjCYRqUjjZRtULubjgzz47N3AWLtrA==' > aws-ec2-pem.pem"
                 sh "chmod 400 aws-ec2-pem.pem"
                 sh "ssh -i aws-ec2-pem.pem -o StrictHostKeyChecking=no ubuntu@100.24.5.4 'kubectl delete -f rep01.yml'"
                 sh "ssh -i aws-ec2-pem.pem -o StrictHostKeyChecking=no ubuntu@100.24.5.4 'kubectl create -f rep01.yml'"
