@@ -22,6 +22,7 @@ pipeline {
         }
         stage("Deployment to Minikube") {
             steps {
+                bat 'minikube start'
                 bat 'minikube status'
                 bat 'kubectl apply -f k8s.yml'
         }
