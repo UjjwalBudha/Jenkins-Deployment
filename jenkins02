@@ -19,5 +19,11 @@ pipeline {
                 bat 'docker push ujjwalbudha000/myrepo:v9'
             }
         }
+        stage ("Deployment to Minikube") {
+            steps {
+                bat 'kubectl delete -f k8s.yml'
+                bat 'kubectl apply -f k8s.yml'
+            }
+        }
     }
 }
