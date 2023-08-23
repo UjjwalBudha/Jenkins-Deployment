@@ -2,10 +2,9 @@ apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: nodejs-test
-  namespace : ujjwal
   labels:
     app: nodejs
-  namespace: ujjwal
+ 
 spec:
   replicas: 2
   template:
