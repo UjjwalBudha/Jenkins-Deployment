@@ -17,7 +17,7 @@ pipeline {
             steps {
                 bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
                 bat 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
-                bat 'docker pubat ujjwalbudha000/myrepo:v9'
+                bat 'docker push ujjwalbudha000/myrepo:v9'
             }
         }
 
