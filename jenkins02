@@ -3,31 +3,54 @@ pipeline {
     environment {
         DOCKER_USERNAME = 'ujjwalbudha000'
         DOCKER_PASSWORD = 'Jszg8sL@8ZD7EHb'
-        PEM_CONTENT = 'MIIEpAIBAAKCAQEAuE1z77NRZR5gRpEWMjkLgfqOn4GJi3UTNCmydPWNPBHKIIFA...'
-        INSTANCE_IP = '100.24.5.4'
+        
     }
     stages {
         stage("Build Nodejs Image") {
             steps {
-                bat 'docker build -t nodejs .'
-                bat 'docker images'
-                bat 'docker ps'
+                sh 'docker build -t nodejs .'
+                sh 'docker images'
+                sh 'docker ps'
             }
         }
         stage("Delivery of Image to Docker Hub") {
             steps {
-                bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
-                bat 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
-                bat 'docker push ujjwalbudha000/myrepo:v9'
+                sh 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
+                sh 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
+                sh 'docker push ujjwalbudha000/myrepo:v9'
             }
         }
 
         stage("Deployment to Kubernetes") {
             steps {
-                sh "echo '${PEM_CONTENT}' > aws-ec2-pem.pem"
+                sh "echo MIIEpAIBAAKCAQEAuE1z77NRZR5gRpEWMjkLgfqOn4GJi3UTNCmydPWNPBHKIIFA
+D3ocbg78Bs/36KfvWxD8C1Y85+lhGBb9k6X3tobli9vKbAkUutJBJgisgS5ii6Z2
+saC53Ey401/8qER0MGL+G4+IspyhUV90b85i8oEimhcNu7bw5ZlllRZAVG84qGTV
+JMe631iBUXXgMdOtmEMfPXGL0i0pGZYQSObe7Xi4OdhOItMFeOlZd0jAmNgf9ERs
+4cXyI0tC9DMsGM69XkOZMsHNUT1vDtyo9WhMkn5d+vw9stZK7JRjUcz7dK5GBioE
+XWHtVDn8yS2kr3YM+NJmBH/PMuzw23OXFA+iCQIDAQABAoIBAHGfrp5U2xWQSKK4
+yApmiOW1Z0CHSBkmMJS0MEVTLaOfBBJOHQRtsCFaM56vkJNrFXH7YqhKnnoLs8R6
+SBNC+xkYyWQUOROp9ZHIFkowhsmNo0udcQfJo0xiMICAaPAEY+2A2lB7iTc0wW+9
+fbeAchg37PE6zUixXIrwq2Pit/5VFwx1hk6m3piIWBmvdAQOb6Eawg9Nr9dMRcjN
+OGWTmOrZcpSfHbcN7wj6Wx/tH26og+T0MIzuHjDj/W3492sauKkxEXD/VBFMwQ72
+1dr670ofdUW8JwgInG2vPA1FmgdUYenrYJugQJnEZuYi/mslXNmmvlIFWgczBwtv
+KkGNoFECgYEA6MQvirUKUD7zJj90H0tYbWp/sg5y1vGJZ6HBY4RbSSnDFo/5NhjX
+68X2FqtDY7jx/WdsC3uNUrke7KUtI1AovJFebNm0/zeL6CW4suK6LvRWbem4WTJt
+L1IwsfPyCQ3YPa4DgzW0/kIaX7zPyd2CqEyKFe9NlyS6MIQKUG4hKSsCgYEAyrLi
+k2Ae2zvc5kWvp0fWcMQjw7HsfVeuCd6Bdn0Mv2og9FKZ6k37KcYm9ktSihb4zB4k
+WjHK9vWTrOWTxk5TGrPYJ7JiAUQWvHBm9zOyyjqwSt4WKseHNq5p0KnNAxj2xOom
+LzLfRALcKzZTB4NvtKo7cDBXeXCGwKfDXP8+n5sCgYEA1SWZ122zFQqgA91FS8bm
+IcPNTVK3zKZ/ybsw6R1xrkykzgtnDSewycGMePO5kR7x0becE+O+5QqKC++xps2n
+kA2aJxkxCihmYF3yhTTjg03Ru3KzklJ/8z5TQxF9CNd5tfmcU9GhfNcxaYvvxw2l
+sNHt/OoW5hoGuZigDUjb6uMCgYAEbQmDfErQMKtvH8BpH6lwBuhdAoqOZha3wnMD
+OlHH8DJOA2u28QL184ywPg7MUxoVoubaTVIIOG6EDPNAFj+8SocCvuNi8bCpZq7o
+4Okbf1KQH+9N+dNa/03yL3L5iVcCD7bLuwmi+4kBLIt9k4Ih6MGpfnS6gxl+JWuf
+oTcl1wKBgQCOVhykxb3FLdvDMQ7FAs2vAqW6/X2tsb7sOeIhVe+8VQt+5+kJqt9W
++GmdC7gSx7NtsnlV0r3Oaihbk5f2p/PkZskbuCm15YqNGOAjEKGTfjtPRCq3Hq2W
+OHyyT46+AWD39kvTNT9IUSkhQjCYRqUjjZRtULubjgzz47N3AWLtrA== > aws-ec2-pem.pem"
                 sh "chmod 400 aws-ec2-pem.pem"
-                sh "ssh -i aws-ec2-pem.pem -o StrictHostKeyChecking=no ubuntu@${INSTANCE_IP} 'kubectl delete -f rep01.yml'"
-                sh "ssh -i aws-ec2-pem.pem -o StrictHostKeyChecking=no ubuntu@${INSTANCE_IP} 'kubectl create -f rep01.yml'"
+                sh "ssh -i aws-ec2-pem.pem -o StrictHostKeyChecking=no ubuntu@100.24.5.4 'kubectl delete -f rep01.yml'"
+                sh "ssh -i aws-ec2-pem.pem -o StrictHostKeyChecking=no ubuntu@100.24.5.4 'kubectl create -f rep01.yml'"
                 sh "rm -f aws-ec2-pem.pem"
             }
         }
