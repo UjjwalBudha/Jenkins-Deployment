@@ -21,6 +21,8 @@ pipeline {
         }
         stage("Deployment to Minikube") {
             steps {
+                bat 'kubectl get pods -n ujjwal'
+                bat 'kubectl config use-context minikube'
                 bat "kubectl apply -f k8s.yml"
         }
     }
