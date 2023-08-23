@@ -24,7 +24,7 @@ pipeline {
             steps {
 
                 
-                bat 'minikube start'
+                
                 bat 'kubectl apply -f k8s.yml'
                 
                 
