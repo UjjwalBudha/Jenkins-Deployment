@@ -1,7 +1,8 @@
 pipeline {
     agent any
     environment {
-        registaryCredential = 'dockerhub_id'
+        DOCKER_USERNAME = credentials('dockerhub_id') 
+        DOCKER_PASSWORD = credentials('dockerhub_id') 
     }
     stages {
         stage("Build Nodejs Image") {
