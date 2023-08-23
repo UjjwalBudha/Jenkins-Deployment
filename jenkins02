@@ -21,7 +21,6 @@ pipeline {
         }
         stage("Deployment to Minikube") {
             steps {
-                bat 'kubectl config current-context'
                 bat "kubectl apply -f k8s.yml"
         }
     }
