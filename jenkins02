@@ -3,31 +3,28 @@ pipeline {
     environment {
         DOCKER_USERNAME = 'ujjwalbudha000'
         DOCKER_PASSWORD = 'Jszg8sL@8ZD7EHb'
-        AWS_INSTANCE_IP = '100.24.5.4'
     }
     stages {
         stage("Build Nodejs Image") {
             steps {
-                sh 'docker build -t nodejs .'
-                sh 'docker images'
-                sh 'docker ps'
+                bat 'docker build -t nodejs .'
+                bat 'docker images'
+                bat 'docker ps'
             }
         }
         stage("Delivery of Image to Docker Hub") {
             steps {
-                sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
-                sh 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
-                sh 'docker push ujjwalbudha000/myrepo:v9'
+                bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
+                bat 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
+                bat 'docker push ujjwalbudha000/myrepo:v9'
+                
             }
         }
+
         stage("Deployment to Kubernetes") {
             steps {
-                withCredentials([file(credentialsId: 'aws-ec2-pem', variable: 'PEM_FILE')]) {
-                    sh """
-                    scp -i $PEM_FILE -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null k8s.yml ec2-user@$AWS_INSTANCE_IP:~/k8s.yml
-                    ssh -i $PEM_FILE -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ec2-user@$AWS_INSTANCE_IP "kubectl apply -f ~/k8s.yml"
-                    """
-                }
+                sh 'ssh -i aws-ec2-pem -o StrictHostKeyChecking=no ubuntu@100.24.5.4 "kubectl delete -f rep01.yml"'
+                sh 'ssh -i aws-ec2-pem -o StrictHostKeyChecking=no ubuntu@100.24.5.4 "kubectl create -f rep01.yml"'
             }
         }
     }
