@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: rep01susi
+  name: nodejs-test
+  namespace : ujjwal
   labels:
     app: httpd
   namespace: dev
