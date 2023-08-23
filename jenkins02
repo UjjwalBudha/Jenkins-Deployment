@@ -27,7 +27,7 @@ pipeline {
                 bat 'minikube start'
                 bat 'kubectl apply -f k8s.yml'
                 bat 'minikube stop'
-                bat 'minikube status'
+                
                 
         }
     }
