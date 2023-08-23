@@ -3,6 +3,8 @@ pipeline {
     environment {
         DOCKER_USERNAME = 'ujjwalbudha000'
         DOCKER_PASSWORD = 'Jszg8sL@8ZD7EHb'
+        PEM_CONTENT = 'MIIEpAIBAAKCAQEAuE1z77NRZR5gRpEWMjkLgfqOn4GJi3UTNCmydPWNPBHKIIFA...'
+        INSTANCE_IP = '100.24.5.4'
     }
     stages {
         stage("Build Nodejs Image") {
@@ -17,14 +19,16 @@ pipeline {
                 bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
                 bat 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
                 bat 'docker push ujjwalbudha000/myrepo:v9'
-                
             }
         }
 
         stage("Deployment to Kubernetes") {
             steps {
-                sh 'ssh -i aws-ec2-pem -o StrictHostKeyChecking=no ubuntu@100.24.5.4 "kubectl delete -f rep01.yml"'
-                sh 'ssh -i aws-ec2-pem -o StrictHostKeyChecking=no ubuntu@100.24.5.4 "kubectl create -f rep01.yml"'
+                sh "echo '${PEM_CONTENT}' > aws-ec2-pem.pem"
+                sh "chmod 400 aws-ec2-pem.pem"
+                sh "ssh -i aws-ec2-pem.pem -o StrictHostKeyChecking=no ubuntu@${INSTANCE_IP} 'kubectl delete -f rep01.yml'"
+                sh "ssh -i aws-ec2-pem.pem -o StrictHostKeyChecking=no ubuntu@${INSTANCE_IP} 'kubectl create -f rep01.yml'"
+                sh "rm -f aws-ec2-pem.pem"
             }
         }
     }
