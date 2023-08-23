@@ -4,18 +4,18 @@ metadata:
   name: nodejs-test
   namespace : ujjwal
   labels:
-    app: httpd
-  namespace: dev
+    app: nodejs
+  namespace: ujjwal
 spec:
   replicas: 2
   template:
     metadata:
       labels:
-        app: httpd
+        app: nodejs
     spec:
       containers:
         - name: nodejs-container
           image: ujjwalbudha000/myrepo:v9
   selector:
     matchLabels:
-      app: httpd
+      app: nodejs
