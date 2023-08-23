@@ -19,6 +19,14 @@ pipeline {
                 bat 'docker push ujjwalbudha000/myrepo:v9'
             }
         }
+        stage("Set Kubernetes Context") {
+        steps {
+            script {
+                bat "kubectl config use-context minikube"
+        }
+    }
+}
+
         stage("Deployment to Minikube") {
             steps {
                 bat 'kubectl config current-context'
