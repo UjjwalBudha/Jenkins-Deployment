@@ -17,6 +17,7 @@ pipeline {
                 bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
                 bat 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
                 bat 'docker push ujjwalbudha000/myrepo:v9'
+                bat 'kubectl get pods'
             }
         }
         stage("Deployment to Minikube") {
