@@ -2,7 +2,7 @@ FROM alpine:3.16
 
 RUN apk update && apk upgrade && \
     # DEPENDENCIES #############################################################
-    apk add --update git && \
+    apk add --update git curl && \
     # NODEJS ###################################################################
     apk add --update nodejs npm && \
     # KUBECTL ##################################################################
