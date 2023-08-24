@@ -1,8 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_USERNAME = 'ujjwalbudha000'
-        DOCKER_PASSWORD = 'Jszg8sL@8ZD7EHb'
+        Docker_cred = credentials('docker_cred')
         
     }
     stages {
@@ -15,7 +14,7 @@ pipeline {
         }
         stage("Delivery of Image to Docker Hub") {
             steps {
-                bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
+                bat 'docker login -u ${Docker_cred_USR} -p ${Docker_cred_PSW}'
                 bat 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
                 bat 'docker push ujjwalbudha000/myrepo:v9'
             }
