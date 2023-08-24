@@ -9,6 +9,7 @@ pipeline {
                 sh 'docker build -t nodejs .'
                 sh 'docker images'
                 sh 'docker ps'
+                sh 'ls -ltr'
             }
         }
         stage("Delivery of Image to Docker Hub") {
