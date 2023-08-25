@@ -2,27 +2,27 @@ pipeline {
     agent any
     environment {
         DOCKERHUB_CREDENTIAL = credentials('docker_cred')
-        SSH_CREDENTIAL = credentials('ssh_secret_file_id')
+        SSH_CREDENTIAL = credentials('sbat_secret_file_id')
     }
     stages {
         stage("Build Nodejs Image") {
             steps {
-                sh 'docker build -t nodejs .'
-                sh 'docker images'
-                sh 'docker ps'
+                bat 'docker build -t nodejs .'
+                bat 'docker images'
+                bat 'docker ps'
             }
         }
         stage("Delivery of Image to Docker Hub") {
             steps {
-                sh 'docker login -u ${DOCKERHUB_CREDENTIAL_USR} -p ${DOCKERHUB_CREDENTIAL_PSW}'
-                sh 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
-                sh 'docker push ujjwalbudha000/myrepo:v9'
+                bat 'docker login -u ${DOCKERHUB_CREDENTIAL_USR} -p ${DOCKERHUB_CREDENTIAL_PSW}'
+                bat 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
+                bat 'docker pubat ujjwalbudha000/myrepo:v9'
             }
         }
         stage("Deployment to Minikube") {
             steps {
                 
-                sh "kubectl create -f k8s.yml"
+                bat "kubectl create -f k8s.yml"
             }
         }
     }
