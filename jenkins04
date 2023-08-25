@@ -13,12 +13,14 @@ pipeline {
         }
         stage("Delivery of Image to Docker Hub") {
             steps {
-                def DOCKERHUB_CREDENTIAL_USR = 'UjjwalBudha000'
-                def DOCKERHUB_CREDENTIAL_PSW = 'Jszg8sL@8ZD7EHb'
-                
-                bat "docker login -u ${DOCKERHUB_CREDENTIAL_USR} -p ${DOCKERHUB_CREDENTIAL_PSW}"
-                bat "docker tag nodejs:latest ujjwalbudha000/myrepo:v9"
-                bat "docker push ujjwalbudha000/myrepo:v9"
+                script {
+                    DOCKERHUB_CREDENTIAL_USR = 'UjjwalBudha000'
+                    DOCKERHUB_CREDENTIAL_PSW = 'Jszg8sL@8ZD7EHb'
+                    
+                    bat "docker login -u %DOCKERHUB_CREDENTIAL_USR% -p %DOCKERHUB_CREDENTIAL_PSW%"
+                    bat "docker tag nodejs:latest ujjwalbudha000/myrepo:v9"
+                    bat "docker push ujjwalbudha000/myrepo:v9"
+                }
             }
         }
         stage("Deployment to Minikube") {
