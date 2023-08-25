@@ -1,31 +1,31 @@
 pipeline {
     agent any
     environment {
-        SSH_CREDENTIAL = credentials('ssh_secret_file_id')
+        DOCKER_USERNAME = credentials('UjjwalBudha000') // Set this in Jenkins credentials
+        DOCKER_PASSWORD = credentials('Jszg8sL@8ZD7EHb') // Set this in Jenkins credentials
     }
     stages {
         stage("Build Nodejs Image") {
             steps {
-                bat 'docker build -t nodejs .'
-                bat 'docker images'
-                bat 'docker ps'
+                script {
+                    def imageTag = "nodejs:${env.BUILD_NUMBER}"
+                    sh "docker build -t $imageTag ."
+                    sh "docker images"
+                }
             }
         }
         stage("Delivery of Image to Docker Hub") {
             steps {
                 script {
-                    DOCKERHUB_CREDENTIAL_USR = 'UjjwalBudha000'
-                    DOCKERHUB_CREDENTIAL_PSW = 'Jszg8sL@8ZD7EHb'
-                    
-                    bat "docker login -u %DOCKERHUB_CREDENTIAL_USR% -p %DOCKERHUB_CREDENTIAL_PSW%"
-                    bat "docker tag nodejs:latest ujjwalbudha000/myrepo:v9"
-                    bat "docker push ujjwalbudha000/myrepo:v9"
+                    sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                    sh "docker tag nodejs:${env.BUILD_NUMBER} ujjwalbudha000/myrepo:v9"
+                    sh "docker push ujjwalbudha000/myrepo:v9"
                 }
             }
         }
         stage("Deployment to Minikube") {
             steps {
-                bat "kubectl create -f k8s.yml"
+                sh "kubectl apply -f k8s.yml" // Make sure you have a valid k8s deployment file
             }
         }
     }
