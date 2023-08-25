@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKERHUB_CREDENTIAL = credentials('docker_cred')
-        SSH_CREDENTIAL = credentials('sbat_secret_file_id')
+        SSH_CREDENTIAL = credentials('ssh_secret_file_id')
     }
     stages {
         stage("Build Nodejs Image") {
@@ -16,7 +16,7 @@ pipeline {
             steps {
                 bat 'docker login -u ${DOCKERHUB_CREDENTIAL_USR} -p ${DOCKERHUB_CREDENTIAL_PSW}'
                 bat 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
-                bat 'docker pubat ujjwalbudha000/myrepo:v9'
+                bat 'docker push ujjwalbudha000/myrepo:v9'
             }
         }
         stage("Deployment to Minikube") {
