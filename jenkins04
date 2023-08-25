@@ -22,7 +22,9 @@ pipeline {
         stage("Deployment to Minikube") {
             steps {
                 
-                
+                sh "scp -i ${SSH_CREDENTIAL} -o StrictHostKeyChecking=no k8s.yml ubuntu@107.22.133.52:/home/ubuntu/"
+                sh 'ssh -i ${SSH_CREDENTIAL} -o StrictHostKeyChecking=no ubuntu@107.22.133.52 "kubectl delete -f rep01.yml"'
+                sh 'ssh -i ${SSH_CREDENTIAL} -o StrictHostKeyChecking=no ubuntu@107.22.133.52 "kubectl create -f rep01.yml"'
             }
         }
     }
