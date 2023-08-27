@@ -18,10 +18,6 @@ pipeline {
                 sh 'docker push ujjwalbudha000/myrepo:v9'
             }
         }
-        stage("Deployment to Minikube") {
-            steps {
-                // sh "kubectl apply -f k8s.yml"
-            }
-        }
+        
     }
 }
