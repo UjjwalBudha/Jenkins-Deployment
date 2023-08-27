@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    environment {
-        DOCKERHUB_CREDENTIAL = credentials('docker_cred')
-    }
     stages {
         stage("Build Nodejs Image") {
             steps {
@@ -14,14 +11,16 @@ pipeline {
         }
         stage("Delivery of Image to Docker Hub") {
             steps {
-                sh 'docker login -u ${DOCKERHUB_CREDENTIAL_USR} -p ${DOCKERHUB_CREDENTIAL_PSW}'
+                withCredentials([usernamePassword(credentialsID:"docker_cred",passwordVariable:"dockerhubPass",usernameVariable:"dockerhubUser")]){
+                sh 'docker login -u ${env.dockerhubUser} -p ${env.dockerhubPass}'
+                }
                 sh 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
                 sh 'docker push ujjwalbudha000/myrepo:v9'
             }
         }
         stage("Deployment to Minikube") {
             steps {
-                sh "kubectl apply -f k8s.yml"
+                // sh "kubectl apply -f k8s.yml"
             }
         }
     }
