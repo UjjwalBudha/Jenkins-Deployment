@@ -18,8 +18,8 @@ pipeline {
                     )]) {
                         sh "docker login -u ${env.dockerhubUser} -p ${env.dockerhubPass}"
                     }    
-                sh 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
-                sh 'docker push ujjwalbudha000/myrepo:v9'
+                sh 'docker tag nodejs:latest budhaujjwal/test:v9'
+                sh 'docker push budhaujjwal/test:v9'
             }
         }
         
