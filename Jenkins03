@@ -11,9 +11,13 @@ pipeline {
         }
         stage("Delivery of Image to Docker Hub") {
             steps {
-                withCredentials([usernamePassword(credentialsID:"docker_cred",passwordVariable:"dockerhubPass",usernameVariable:"dockerhubUser")]){
-                sh 'docker login -u ${env.dockerhubUser} -p ${env.dockerhubPass}'
-                }
+                 withCredentials([usernamePassword(
+                    credentialsId: "docker_cred",
+                    passwordVariable: "dockerhubPass",
+                    usernameVariable: "dockerhubUser"
+                    )]) {
+                        sh 'docker login'
+                    }    
                 sh 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
                 sh 'docker push ujjwalbudha000/myrepo:v9'
             }
